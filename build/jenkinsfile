@@ -1,6 +1,6 @@
 pipeline{
     agent { 
-        lablel 'jenkins-agent'
+        label 'jenkins-agent'
     }
     options {
         timeout(time: 1, unit: 'HOURS')
@@ -8,13 +8,13 @@ pipeline{
     }
 
     stages {
-        stage ("App code checkout") {
+        stage ("App code Checkout") {
             steps {
                 git branch: "main", url: 'https://github.com/anujsankdecha/docker-Jenkins-webdeploy.git'
             }
         }
         stage ("Build Docker Image"){
-            staeps {
+            steps {
                 sh 'docker build -t mywebapp:v1 .'
             }
         }
