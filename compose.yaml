@@ -1,0 +1,7 @@
+version: '2.8'
+services: 
+  webapp:
+    container_name: mywebapp
+    build: .
+    ports:
+      - "84:80"
