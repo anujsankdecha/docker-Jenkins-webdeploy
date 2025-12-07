@@ -1,0 +1,27 @@
+pipeline{
+    agent { 
+        lablel 'jenkins-agent'
+    }
+    options {
+        timeout(time: 1, unit: 'HOURS')
+        buildDiscarder(logRotator(numToKeepStr: '3'))
+    }
+
+    stages {
+        stage ("App code checkout") {
+            steps {
+                git branch: "main", url: 'https://github.com/anujsankdecha/docker-Jenkins-webdeploy.git'
+            }
+        }
+        stage ("Build Docker Image"){
+            staeps {
+                sh 'docker build -t mywebapp:v1 .'
+            }
+        }
+        stage {"Run Docker Container"} {
+            steps {
+                sh 'docker run -dit -p 8080:80 mywebapp:v1'
+            }
+        }
+    }
+}
